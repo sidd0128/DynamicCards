@@ -1,6 +1,8 @@
-import React, { useState, FC } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import DraggableFlatList, { RenderItemParams } from 'react-native-draggable-flatlist';
+import React, {useState, FC} from 'react';
+import {View, TouchableOpacity, Text} from 'react-native';
+import DraggableFlatList, {
+  RenderItemParams,
+} from 'react-native-draggable-flatlist';
 import mainStyles from './styles';
 import CardData from '../types/CardData';
 import Card from '../components/card';
@@ -9,12 +11,15 @@ const MainScreen: FC = () => {
   const [cards, setCards] = useState<CardData[]>([]);
 
   const addCard = () => {
-    setCards([...cards, { title: '', description: '', hobby: null, options: [''] }]);
+    setCards([
+      ...cards,
+      {title: '', description: '', hobby: null, options: ['']},
+    ]);
   };
 
   const copyCard = (index: number) => {
     const newCards = [...cards];
-    newCards.splice(index + 1, 0, { ...cards[index] });
+    newCards.splice(index + 1, 0, {...cards[index]});
     setCards(newCards);
   };
 
@@ -29,8 +34,8 @@ const MainScreen: FC = () => {
     setCards(newCards);
   };
 
-  const renderItem = ({ item, drag, getIndex }: RenderItemParams<CardData>) => (
-    <TouchableOpacity onLongPress={drag}>
+  const renderItem = ({item, drag, getIndex}: RenderItemParams<CardData>) => (
+    <TouchableOpacity onLongPress={drag} style={{marginBottom: 16}}>
       <Card
         data={item}
         index={getIndex() ?? -1}
@@ -46,8 +51,9 @@ const MainScreen: FC = () => {
       <DraggableFlatList
         data={cards}
         renderItem={renderItem}
+        contentContainerStyle={{flexGrow: 1}}
         keyExtractor={(_, index) => `card-${index}`}
-        onDragEnd={({ data }) => setCards(data)}
+        onDragEnd={({data}) => setCards(data)}
       />
       <TouchableOpacity onPress={addCard} style={mainStyles.addButton}>
         <Text style={mainStyles.addButtonText}>Add</Text>

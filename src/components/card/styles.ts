@@ -1,12 +1,22 @@
-import { StyleSheet } from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#f9f9f9',
-    padding: 15,
-    margin: 10,
-    borderRadius: 10,
-    elevation: 5,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 16,
+    shadowColor: 'black',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 14,
+    height: 510,
+    width: Dimensions.get('screen').width,
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
   },
   textField: {
     borderBottomWidth: 1,
