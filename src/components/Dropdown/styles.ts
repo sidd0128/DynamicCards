@@ -12,10 +12,13 @@ const dropdownStyles = StyleSheet.create({
     color: '#333',
     backgroundColor: '#fff',
     width: '100%',
+    height: 40,
   },
   container: {
     marginBottom: 10,
     width: '100%',
+    height: 60,
+    justifyContent: 'center',
   },
   
   label: {

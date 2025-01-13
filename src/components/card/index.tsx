@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import styles from './styles';
 import CardProps from '../../types/CardProps';
 import Dropdown from '../Dropdown';
 import CustomInput from '../CustomInput';
+import styles from './styles';
 
 const Card: FC<CardProps> = ({ data, onCopy, onDelete, onUpdate, index }) => {
   
@@ -42,31 +42,36 @@ const Card: FC<CardProps> = ({ data, onCopy, onDelete, onUpdate, index }) => {
 
   return (
     <View style={styles.card}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
+      <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
         {renderTextInput('Title', 'Enter Title', 'title')}
         {renderTextInput('Description', 'Enter Description', 'description', true)}
 
         <Dropdown
           options={['Reading', 'Gaming', 'Sports']}
           selectedValue={data.hobby}
-          onSelect={(value) => onUpdate(index, { ...data, hobby: value })}
+          onSelect={(value) => onUpdate(index, { ...data, hobby: value ?? '' })}
         />
 
         <Text style={styles.optionsLabel}>Options</Text>
         {data.options.map((option, idx) => (
           <View key={idx} style={styles.optionRow}>
+          <View style={styles.inputContainer}>
             <CustomInput
               label={`Option ${idx + 1}`}
               placeholder="Option"
               value={option}
               onChangeText={(value) => handleInputOptionsTextChange(idx, value)}
             />
-            {data.options.length > 1 && (
-              <TouchableOpacity onPress={() => removeOption(idx)}>
-                <Text style={styles.removeIcon}>X</Text>
-              </TouchableOpacity>
-            )}
           </View>
+          {data.options.length > 1 && (
+            <TouchableOpacity
+              style={styles.removeIconContainer}
+              onPress={() => removeOption(idx)}
+            >
+              <Text style={styles.removeIcon}>X</Text>
+            </TouchableOpacity>
+          )}
+        </View>
         ))}
 
         <TouchableOpacity onPress={addOption} style={styles.addOptionButton}>

@@ -1,7 +1,7 @@
 interface CardData {
   title: string;
   description: string;
-  hobby: string| null;
+  hobby: string;
   options: string[];
 }
 

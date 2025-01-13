@@ -25,8 +25,10 @@ const MainScreen: FC = () => {
   }
 
   const deleteCard = (index: number) => {
-    const newCards = cards.filter((_, i) => i !== index);
-    setCards(newCards);
+    if(cards.length > 1){
+      const newCards = cards.filter((_, i) => i !== index);
+      setCards(newCards);
+    }
   };
 
   const updateCard = (index: number, updatedCard: CardData) => {
@@ -35,8 +37,11 @@ const MainScreen: FC = () => {
     setCards(newCards);
   };
 
-  const renderItem = ({item, drag, getIndex}: RenderItemParams<CardData>) => (
-    <TouchableOpacity onLongPress={drag} style={{marginBottom: 16}}>
+  const renderItem = ({ item, drag, getIndex }: RenderItemParams<CardData>) => (
+    <View style={mainStyles.cardContainer}>
+        <TouchableOpacity onLongPress={drag} style={mainStyles.dragButton}>
+          <Text style={mainStyles.dragIcon}>::::</Text> {/* Drag Handle */}
+        </TouchableOpacity>
       <Card
         data={item}
         index={getIndex() ?? -1}
@@ -44,8 +49,9 @@ const MainScreen: FC = () => {
         onDelete={deleteCard}
         onUpdate={updateCard}
       />
-    </TouchableOpacity>
+    </View>
   );
+  
 
   return (
     <View style={mainStyles.container}>
@@ -55,6 +61,7 @@ const MainScreen: FC = () => {
         contentContainerStyle={{flexGrow: 1}}
         keyExtractor={(_, index) => `card-${index}`}
         onDragEnd={({data}) => setCards(data)}
+        keyboardShouldPersistTaps="handled" // Allow taps to propagate to child components
       />
       <TouchableOpacity onPress={addCard} style={mainStyles.addButton}>
         <Text style={mainStyles.addButtonText}>Add</Text>
