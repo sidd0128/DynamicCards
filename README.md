@@ -45,7 +45,7 @@ This is the entry point where users interact with the cards. It manages the stat
 2. **Add Card:**
    ```tsx
    const addCard = () => {
-       setCards([...cards, { title: '', description: '', hobby: null, options: [''] }]);
+       setCards([...cards, { title: '', description: '', hobby: 'Reading', options: [''] }]);
    };
    ```
    - Adds a new blank card with default values.
@@ -54,9 +54,10 @@ This is the entry point where users interact with the cards. It manages the stat
    ```tsx
    const copyCard = (index: number) => {
        const newCards = [...cards];
-       newCards.splice(index + 1, 0, { ...cards[index] });
+       const cardToCopy = { ...newCards[index], options: [...newCards[index].options] };
+       newCards.splice(newCards.length, 0, cardToCopy);
        setCards(newCards);
-   };
+   }
    ```
    - Duplicates a card at the specified index.
 
@@ -208,4 +209,3 @@ Defines the structure of the card data used across the application.
 ## Styling
 
 Styles are defined separately in `styles/mainStyles.ts` and `styles/styles.ts` for reusability and maintainability.
-
