@@ -13,15 +13,16 @@ const MainScreen: FC = () => {
   const addCard = () => {
     setCards([
       ...cards,
-      {title: '', description: '', hobby: null, options: ['']},
+      {title: '', description: '', hobby: 'Reading', options: ['']},
     ]);
   };
 
   const copyCard = (index: number) => {
     const newCards = [...cards];
-    newCards.splice(index + 1, 0, {...cards[index]});
+    const cardToCopy = { ...newCards[index], options: [...newCards[index].options] };
+    newCards.splice(newCards.length, 0, cardToCopy);
     setCards(newCards);
-  };
+  }
 
   const deleteCard = (index: number) => {
     const newCards = cards.filter((_, i) => i !== index);

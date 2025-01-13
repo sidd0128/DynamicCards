@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
   },
+  scrollContent: {
+    paddingBottom: 20,
+  },
   textField: {
     borderBottomWidth: 1,
     borderColor: '#ccc',
