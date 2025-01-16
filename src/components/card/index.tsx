@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import CardProps from '../../types/CardProps';
 import Dropdown from '../Dropdown';
@@ -6,6 +6,7 @@ import CustomInput from '../CustomInput';
 import styles from './styles';
 
 const Card: FC<CardProps> = ({ data, onCopy, onDelete, onUpdate, index }) => {
+  const [selectedHobby, setSelectedHobby] = useState<string>(data.hobby ?? '');
   
   const handleInputOptionsTextChange = (idx: number, value: string) => {
     const updatedOptions = [...data.options];
@@ -24,7 +25,9 @@ const Card: FC<CardProps> = ({ data, onCopy, onDelete, onUpdate, index }) => {
       onUpdate(index, { ...data, options: updatedOptions });
     }
   };
-
+  const handleHobbyChange = (value: string) => {
+    onUpdate(index, { ...data, hobby: value});
+  };
   const renderTextInput = (
     label: string,
     placeholder: string,
@@ -45,13 +48,14 @@ const Card: FC<CardProps> = ({ data, onCopy, onDelete, onUpdate, index }) => {
       <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled">
         {renderTextInput('Title', 'Enter Title', 'title')}
         {renderTextInput('Description', 'Enter Description', 'description', true)}
-
         <Dropdown
-          options={['Reading', 'Gaming', 'Sports']}
-          selectedValue={data.hobby}
-          onSelect={(value) => onUpdate(index, { ...data, hobby: value ?? '' })}
-        />
-
+    options={['Reading', 'Gaming', 'Sports']}
+    selectedValue={selectedHobby}
+    onSelect={(value) => {
+      setSelectedHobby(value);
+      handleHobbyChange(value);
+    }}
+  />
         <Text style={styles.optionsLabel}>Options</Text>
         {data.options.map((option, idx) => (
           <View key={idx} style={styles.optionRow}>

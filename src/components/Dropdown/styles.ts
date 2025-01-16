@@ -1,29 +1,34 @@
 import { StyleSheet } from 'react-native';
 
 const dropdownStyles = StyleSheet.create({
-
-  input: {
-    fontSize: 16,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    color: '#333',
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 40,
-  },
   container: {
-    marginBottom: 10,
+    marginBottom: 20,
     width: '100%',
-    height: 60,
-    justifyContent: 'center',
+    zIndex: 1000,
   },
-  
   label: {
     marginBottom: 5,
     fontSize: 16,
+    fontWeight: 'bold',
+  },
+  input: {
+    borderColor: '#ccc',
+    backgroundColor: '#fff',
+  },
+  inputText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  dropDownContainer: {
+    borderColor: '#ccc',
+  },
+  placeholderText: {
+    color: '#9EA0A4',
+  },
+  listItemLabel: {
+    color: '#333',
+  },
+  selectedItemLabel: {
     fontWeight: 'bold',
   },
 });

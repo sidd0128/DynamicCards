@@ -9,6 +9,7 @@ import Card from '../components/card';
 
 const MainScreen: FC = () => {
   const [cards, setCards] = useState<CardData[]>([]);
+  
 
   const addCard = () => {
     setCards([
@@ -19,10 +20,15 @@ const MainScreen: FC = () => {
 
   const copyCard = (index: number) => {
     const newCards = [...cards];
-    const cardToCopy = { ...newCards[index], options: [...newCards[index].options] };
+    const cardToCopy = { 
+      ...newCards[index], 
+      options: [...newCards[index].options], 
+      hobby: newCards[index].hobby || 'Reading'
+    };
     newCards.splice(newCards.length, 0, cardToCopy);
     setCards(newCards);
-  }
+  };
+  
 
   const deleteCard = (index: number) => {
     if(cards.length > 1){
@@ -60,8 +66,10 @@ const MainScreen: FC = () => {
         renderItem={renderItem}
         contentContainerStyle={{flexGrow: 1}}
         keyExtractor={(_, index) => `card-${index}`}
-        onDragEnd={({data}) => setCards(data)}
-        keyboardShouldPersistTaps="handled" // Allow taps to propagate to child components
+        keyboardShouldPersistTaps="handled"
+        onDragEnd={({ data }) => {
+          setCards(data);
+        }}
       />
       <TouchableOpacity onPress={addCard} style={mainStyles.addButton}>
         <Text style={mainStyles.addButtonText}>Add</Text>

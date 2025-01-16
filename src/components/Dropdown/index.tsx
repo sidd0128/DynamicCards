@@ -1,33 +1,38 @@
-import React, { FC } from 'react';
-import RNPickerSelect from 'react-native-picker-select';
+import React, { FC, useState, useCallback } from 'react';
 import { View, Text } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 import dropdownStyles from './styles';
 import DropdownProps from '../../types/DropdownProps';
 
 const Dropdown: FC<DropdownProps> = ({ options, selectedValue, onSelect }) => {
-  const items = options.map((option) => ({ label: option, value: option }));
+  const [open, setOpen] = useState(false);
+  const [items, setItems] = useState(
+    options.map((option) => ({ label: option, value: option }))
+  );
+
+  const handleValueChange = useCallback((value: string) => {
+    onSelect(value);
+  }, [onSelect]);
 
   return (
     <View style={dropdownStyles.container}>
       <Text style={dropdownStyles.label}>Select a Hobby</Text>
-      <RNPickerSelect
-        onValueChange={(value) => onSelect(value)}
+      <DropDownPicker
+        open={open}
+        value={selectedValue}
+        setValue={handleValueChange}
         items={items}
-        value={selectedValue || 'Reading'}
-        style={{
-          inputIOS: dropdownStyles.input,
-          inputAndroid: dropdownStyles.input,
-          iconContainer: {
-            top: 10,
-            right: 12,
-          },
-        }}
-        placeholder={{
-          label: 'Choose a hobby...',
-          value: '',
-          color: '#9EA0A4',
-        }}
-        disabled={false}
+        setOpen={setOpen}
+        setItems={setItems}
+        placeholder="Choose a hobby..."
+        style={dropdownStyles.input}
+        textStyle={dropdownStyles.inputText}
+        dropDownContainerStyle={dropdownStyles.dropDownContainer}
+        placeholderStyle={dropdownStyles.placeholderText}
+        listItemLabelStyle={dropdownStyles.listItemLabel}
+        selectedItemLabelStyle={dropdownStyles.selectedItemLabel}
+        zIndex={3000}
+        zIndexInverse={1000}
       />
     </View>
   );

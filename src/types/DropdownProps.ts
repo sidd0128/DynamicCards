@@ -1,6 +1,7 @@
 interface DropdownProps {
   options: string[];
-  selectedValue: string | null;
-  onSelect: (value: string | null) => void;
+  selectedValue: string;
+  onSelect: (value: string) => void;
 }
-  export default DropdownProps;
+
+export default DropdownProps;
