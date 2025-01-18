@@ -174,3 +174,7 @@ Defines the structure of card data used across the application.
 
 ## Styling
 Styles are defined separately in `styles/mainStyles.ts` and `styles/styles.ts` for reusability and maintainability.
+
+## Video Example 
+https://github.com/user-attachments/assets/915b637e-716f-41ed-bad8-b3ed2b8bffd3
+
